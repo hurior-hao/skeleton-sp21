@@ -1,5 +1,7 @@
 package IntList;
 
+import static IntList.Primes.isPrime;
+
 public class IntListExercises {
 
     /**
@@ -10,7 +12,7 @@ public class IntListExercises {
      */
     public static void addConstant(IntList lst, int c) {
         IntList head = lst;
-        while (head.rest != null) {
+        while (head != null) {
             head.first += c;
             head = head.rest;
         }
@@ -41,7 +43,6 @@ public class IntListExercises {
             if (p.first > max) {
                 max = p.first;
             }
-            p = p.rest;
         }
         return max;
     }
@@ -67,16 +68,16 @@ public class IntListExercises {
      */
     public static boolean squarePrimes(IntList lst) {
         // Base Case: we have reached the end of the list
-        if (lst == null) {
-            return false;
+        int flag=0;
+        IntList p = lst;
+        while(p!=null) {
+            if (isPrime(p.first)) {
+                p.first *= p.first;
+                flag = 1;
+            }
         }
-
-        boolean currElemIsPrime = Primes.isPrime(lst.first);
-
-        if (currElemIsPrime) {
-            lst.first *= lst.first;
-        }
-
-        return currElemIsPrime || squarePrimes(lst.rest);
+            return flag==1;
     }
+
+
 }
